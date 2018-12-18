@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+}
+
+#board div {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  float: left;
+}
+
+.alive {
+  background-color: green;
+}
+
+#board {
+  margin: 50px auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: end;
+  margin: 0 20% 0 20%;
+}
+
+.controls button {
+  margin-left: 10px;
+}
+
+table,
+td {
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+tr {
+  display: flex;
+}
+
+td {
+  display: block;
+  width: 25px;
+  height: 25px;
+}
