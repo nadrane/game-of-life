@@ -1,8 +1,17 @@
 # game-of-life
 
+Your task is to build Conway's Game of Life. You can learn a little more about it [here](https://www.youtube.com/watch?v=0XI6s-TGzSs). [Here] is an awesome video showing more sophisticated configurations. Skip to about 1:10 for where things start.
+
+RULES
+
+1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+2. Any live cell with two or three live neighbors lives on to the next generation.
+3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+
 ## Getting Setup
 
-You will need to download the project with git.
+I've created a starter project that you will work off of. You will need to download the project with git.
 
 Download the project using `git clone git@github.com:nadrane/game-of-life.git`
 
