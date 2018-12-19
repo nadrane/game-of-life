@@ -1,12 +1,11 @@
-const boardWidth = 3;
-const boardHeight = 3;
-let board = [[false, false, false], [false, false, false], [false, false, false]];
+const boardWidth = 5;
+const boardHeight = 5;
 
 /*
   This function is respnsible for creating a grid using HTML table elements
   You should not need to edit it.
 */
-function tableCreate(height, width) {
+function tableCreate(width, height) {
   const board = document.getElementById('board');
   const table = document.createElement('table');
   const tableBody = document.createElement('tbody');
@@ -58,7 +57,6 @@ function toggleCellLiveness(cell) {
   The job of this function is to take an array representing the state of the board
   and to use it to modify the classes of each cell in the DOM to its new value.
   You should not need to edit it.
-
 */
 function render(board) {
   // We are destructuring the object returns from getCoords higher
@@ -85,7 +83,17 @@ function render(board) {
   This functions job is to return an array of arrays, whose width and height matches
   the parameters passed in
 */
-function initializeBoard(width, height) {}
+function initializeBoard(width, height) {
+  const board = [];
+  for (let row = 0; row < height; row++) {
+    const newRow = [];
+    board.push(newRow);
+    for (let column = 0; column < width; column++) {
+      newRow.push(false);
+    }
+  }
+  return board;
+}
 
 /*
   IMPLEMENT ME
@@ -139,12 +147,12 @@ function initializeGameOfLife() {
   */
   function registerPlayButton() {}
 
-  initializeBoard(width, height);
+  board = initializeBoard(boardWidth, boardHeight);
+  tableCreate(boardWidth, boardHeight);
   registerStepButton();
   registerPlayButton();
   registerCellClick();
 }
 
-tableCreate(3, 3);
 initializeGameOfLife();
 render(board);
