@@ -28,3 +28,12 @@ The filepath will look something like this, though the specifics will depend on 
 I've written some scaffolding that gets the game working on the web, but I've omitted the implementations to some key functions.
 
 Your job is to get complete these functions. All of the code is located in `app.js`
+
+## Solution
+
+There is a separate branch with the solution. You can view it with
+
+`git branch solution`
+
+from without your game of life folder
+
