@@ -84,6 +84,9 @@ function render(board) {
   This functions job is create the data structure that render expects.
   It should match the supplied width and height.
   You probably want to initialize each cell as dead.
+
+  Once you're finished, you should be able to click around the board,
+  making the cell you click on alive.
 */
 function initializeBoard(width, height) {
   board = [];
@@ -110,7 +113,55 @@ function initializeBoard(width, height) {
        Any live cell with more than three live neighbors dies, as if by overpopulation.
        Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 */
-function transform(board) {}
+
+function transform(existingBoard) {
+  const newBoard = initializeBoard(boardWidth, boardHeight);
+  for (let row = 0; row < boardHeight; row++) {
+    for (let column = 0; column < boardWidth; column++) {
+      const livingNeighbors = getNumberLivingNeighbors(existingBoard, row, column);
+      if (livingNeighbors < 2) {
+        newBoard[row][column] = false;
+      } else if (livingNeighbors > 3) {
+        newBoard[row][column] = false;
+      } else if (livingNeighbors === 3) {
+        newBoard[row][column] = true;
+      } else if (livingNeighbors === 2) {
+        newBoard[row][column] = existingBoard[row][column];
+      }
+    }
+  }
+  return newBoard;
+}
+
+/*
+  This helper function will probably be super helpful when writing the transform function
+  Do we want to deal with wrapping if we get to the edge of the board?
+*/
+function getNumberLivingNeighbors(board, row, column) {
+  return getNeighbors(row, column).filter(({ row, column }) => board[row][column]).length;
+}
+function getNeighbors(row, column) {
+  const neighbors = [];
+  for (let i = -1; i <= 1; i++) {
+    for (let j = -1; j <= 1; j++) {
+      if (i === 0 && j === 0) {
+        continue;
+      }
+      const newRow = row + j;
+      const newColumn = column + i;
+
+      if (newRow < 0 || newColumn < 0 || newColumn >= boardWidth || newRow >= boardHeight) {
+        continue;
+      }
+
+      neighbors.push({
+        row: newRow,
+        column: newColumn
+      });
+    }
+  }
+  return neighbors;
+}
 
 function initializeGameOfLife() {
   function registerCellClick() {
@@ -136,7 +187,10 @@ function initializeGameOfLife() {
       You should be able to implement this is a couple lines.
       You might need to use a function that I wrote
     */
-    stepButton.addEventListener('click', () => {});
+    stepButton.addEventListener('click', () => {
+      board = transform(board);
+      render(board);
+    });
   }
 
   /*
@@ -147,7 +201,26 @@ function initializeGameOfLife() {
     How can we make it so that our board updates at a regularly interval?
     Note: You will need to edit the index.html to make this work
   */
-  function registerPlayButton() {}
+  function registerPlayButton() {
+    const playButton = document.getElementById('play');
+
+    playButton.addEventListener('click', () => {
+      setInterval(() => {
+        render(transform(board));
+      }, 1000);
+    });
+  }
+
+  /*
+    BONUS
+
+    It would be nice if we could completely reset the board
+    Note: You will need to edit the index.html to make this work
+
+  */
+  function registerResetButton() {
+    board = initializeBoard(boardWidth, boardHeight);
+  }
 
   // What does || do again?
   // Why might I have included it here?
@@ -157,7 +230,7 @@ function initializeGameOfLife() {
   registerStepButton();
   registerPlayButton();
   registerCellClick();
+  registerResetButton();
 }
 
 initializeGameOfLife();
-render(board);
