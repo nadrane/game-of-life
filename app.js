@@ -1,5 +1,6 @@
 const boardWidth = 5;
 const boardHeight = 5;
+let board = [];
 
 /*
   This function is respnsible for creating a grid using HTML table elements
@@ -83,17 +84,7 @@ function render(board) {
   This functions job is to return an array of arrays, whose width and height matches
   the parameters passed in
 */
-function initializeBoard(width, height) {
-  const board = [];
-  for (let row = 0; row < height; row++) {
-    const newRow = [];
-    board.push(newRow);
-    for (let column = 0; column < width; column++) {
-      newRow.push(false);
-    }
-  }
-  return board;
-}
+function initializeBoard(width, height) {}
 
 /*
   IMPLEMENT ME
@@ -147,7 +138,10 @@ function initializeGameOfLife() {
   */
   function registerPlayButton() {}
 
-  board = initializeBoard(boardWidth, boardHeight);
+  // What does || do again?
+  // Why might I have included it here?
+  // Should it stay after we've finished implementing initializeBoard?
+  board = initializeBoard(boardWidth, boardHeight) || [];
   tableCreate(boardWidth, boardHeight);
   registerStepButton();
   registerPlayButton();
