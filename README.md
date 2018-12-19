@@ -2,7 +2,7 @@
 
 Your task is to build Conway's Game of Life. You can learn a little more about it [here](https://www.youtube.com/watch?v=0XI6s-TGzSs). [Here](https://www.youtube.com/watch?v=C2vgICfQawE) is an awesome video showing more sophisticated configurations. Skip to about 1:10 for where things start.
 
-RULES
+To reiterate the rules:
 
 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
 2. Any live cell with two or three live neighbors lives on to the next generation.
@@ -11,7 +11,7 @@ RULES
 
 ## Getting Setup
 
-I've created a starter project that you will work off of. You will need to download the project with git.
+I've created a starter project that you will work off of. You will need to download the project with [git](https://git-scm.com/downloads).
 
 Download the project using `git clone git@github.com:nadrane/game-of-life.git`
 
@@ -19,7 +19,9 @@ Download the project using `git clone git@github.com:nadrane/game-of-life.git`
 
 You can open the game in your browser by pasting in the file path to your `index.html` in the URL search bar.
 
-The filepath will look something like this: `file:///Users/nickdrane/clients/spantree/rush/game-of-life/index.html`
+The filepath will look something like this, though the specifics will depend on where you clone the start project:
+
+`file:///Users/nickdrane/clients/spantree/rush/game-of-life/index.html`
 
 ## Completing the game
 
