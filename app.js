@@ -89,10 +89,12 @@ function initializeBoard(width, height) {
   board = [];
   for (let row = 0; row < height; row++) {
     const newRow = [];
-    for (let column = 0; column < height; column++) {
+    board.push(newRow);
+    for (let column = 0; column < width; column++) {
       newRow.push(false);
     }
   }
+  return board;
 }
 
 /*
