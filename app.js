@@ -22,15 +22,14 @@ function tableCreate(rows, columns) {
   board.appendChild(tbl);
 }
 
-/* This is a higher order function that allows interacts with the DOM and allows you to run a function against every single cell */
+/*
+   This is a higher order function that allows interacts with the DOM and
+   allows you to run a function against every single cell
+*/
 function forEachCell(iterator) {
   const cells = document.querySelectorAll('td');
   cells.forEach((cell, idx) => iterator(cell, idx));
 }
-
-/* The job of this function is to take an array representing the state of the board
-   and to use it to modify the classes of each cell in the DOM to its new value.
-*/
 
 function makeCellAlive(cell) {
   cell.classList.add('alive');
@@ -44,6 +43,10 @@ function toggleCellLiveness(cell) {
   cell.classList.toggle('alive');
 }
 
+/*
+   The job of this function is to take an array representing the state of the board
+   and to use it to modify the classes of each cell in the DOM to its new value.
+*/
 function render(board) {
   const getCoords = idx => ({
     column: idx % boardWidth,
@@ -105,9 +108,10 @@ function handleStepClick(e) {
 }
 
 /*
+  It would be nice if we didn't need to click step every time we wanted to advance the state of the game
   How can we make it so that our board updates at a regularly interval?
 */
-function handlePlayClick(e) {}
+function handlePlayClick() {}
 
 tableCreate(3, 3);
 // render(board);
