@@ -1,34 +1,45 @@
 const boardWidth = 3;
 const boardHeight = 3;
-let board = [[true, true, true], [true, false, true], [true, false, false]];
+let board = [[false, false, false], [false, false, false], [false, false, false]];
 
-function tableCreate(rows, columns) {
+/*
+  This function is respnsible for creating a grid using HTML table elements
+  You should not need to edit it.
+*/
+function tableCreate(height, width) {
   const board = document.getElementById('board');
-  const tbl = document.createElement('table');
-  const tblBody = document.createElement('tbody');
+  const table = document.createElement('table');
+  const tableBody = document.createElement('tbody');
 
-  for (let j = 0; j < rows; j++) {
+  for (let j = 0; j < height; j++) {
     const row = document.createElement('tr');
 
-    for (let i = 0; i < columns; i++) {
+    for (let i = 0; i < width; i++) {
       const cell = document.createElement('td');
       row.appendChild(cell);
     }
 
-    tblBody.appendChild(row);
+    tableBody.appendChild(row);
   }
 
-  tbl.appendChild(tblBody);
-  board.appendChild(tbl);
+  table.appendChild(tableBody);
+  board.appendChild(table);
 }
 
 /*
-   This is a higher order function that allows interacts with the DOM and
-   allows you to run a function against every single cell
+  This is a higher order function that allows interacts with the DOM and
+  allows you to run a function against every single cell.
+  You should not need to edit it.
 */
 function forEachCell(iterator) {
   const cells = document.querySelectorAll('td');
-  cells.forEach((cell, idx) => iterator(cell, idx));
+
+  const getCoords = idx => ({
+    column: idx % boardWidth,
+    row: Math.floor(idx / boardWidth)
+  });
+
+  cells.forEach((cell, idx) => iterator(cell, getCoords(idx)));
 }
 
 function makeCellAlive(cell) {
@@ -44,20 +55,15 @@ function toggleCellLiveness(cell) {
 }
 
 /*
-   The job of this function is to take an array representing the state of the board
-   and to use it to modify the classes of each cell in the DOM to its new value.
+  The job of this function is to take an array representing the state of the board
+  and to use it to modify the classes of each cell in the DOM to its new value.
+  You should not need to edit it.
+
 */
 function render(board) {
-  const getCoords = idx => ({
-    column: idx % boardWidth,
-    row: Math.floor(idx / boardWidth)
-  });
-
-  forEachCell((cell, idx) => {
-    // We are destructuring the object returns from getCoords higher
-    // This is sometimes referred to as destructured assignment
-    const { row, column } = getCoords(idx);
-
+  // We are destructuring the object returns from getCoords higher
+  // This is sometimes referred to as destructured assignment
+  forEachCell((cell, { row, column }) => {
     // If the cell is alive on the next turn
     if (board[row][column]) {
       makeCellAlive(cell);
@@ -67,54 +73,78 @@ function render(board) {
   });
 }
 
-/* I would recommend representing the state of your game as an array of nested arrays.
-   In essence, the arrays represent a large grid
-   Each innermost array will contain a boolean value that indicates if a particular cell is alive or dead
+/*
+  START HERE
 
-   This functions job is to return an array of array, whose width and height matches
-   the parameters passed in
+  The render function above expects you to represent the state of your
+  game as an array of nested arrays, whose innermost elements contain booleans
+  that indicate if a particular cell is alive or dead.
+  A value of true indicates that a cell is alive.
+  A value of false indicates that a cell is dead.
+
+  This functions job is to return an array of arrays, whose width and height matches
+  the parameters passed in
 */
 function initializeBoard(width, height) {}
 
-/* This function will take in an array of arrays that represents all the cells in the board.
-   Each element in these arrays is either true or false.
-   If an element is true, it represents a living cell
-   if an element is false, it represents a dead cell
+/*
+  IMPLEMENT ME
+
+  This function will take in the board created by initializeBoard and will
+  apply the game of life rules to that board, returning a new one. More specifically,
+  You're job is to process all of the cells, modify their states from alive (true) to dead (false) or from dead to living and then to return the resulting array.
 
    RULES
        Any live cell with fewer than two live neighbors dies, as if by underpopulation.
        Any live cell with two or three live neighbors lives on to the next generation.
        Any live cell with more than three live neighbors dies, as if by overpopulation.
        Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-
-
-   You're job is to process all of the cells, modify their states from living to dead or dead to living
-   and then to return the resulting array
 */
-function transform(board) {
-  return board;
-}
+function transform(board) {}
 
-function handleClick(e) {
-  toggleCellLiveness(e.target);
-}
+function initializeGameOfLife() {
+  function registerCellClick() {
+    forEachCell((cell, { row, column }) => {
+      cell.addEventListener('click', () => {
+        // Remember that the board contains boolean values
+        // This line toggles the boolean value.
+        // If it's true, make it false
+        // If it's false, make it true
+        board[row][column] = !board[row][column];
+        render(board);
+      });
+    });
+  }
 
-function handleStepClick(e) {
-  const playButton = document.getElementById('step');
-  playButton.addEventListener('click', () => {
-    board = transform(board);
-    render(board);
-  });
-}
+  function registerStepButton(e) {
+    const stepButton = document.getElementById('step');
 
-/*
-  It would be nice if we didn't need to click step every time we wanted to advance the state of the game
-  How can we make it so that our board updates at a regularly interval?
-*/
-function handlePlayClick() {}
+    /*
+      IMPLEMENT ME
+
+      What should happen when the step button is clicked?
+      You should be able to implement this is a couple lines.
+      You might need to use a function that I wrote
+    */
+    stepButton.addEventListener('click', () => {});
+  }
+
+  /*
+    BONUS
+
+    It would be nice if we didn't need to click step every time we
+    wanted to advance the state of the game.
+    How can we make it so that our board updates at a regularly interval?
+    Note: You will need to edit the index.html to make this work
+  */
+  function registerPlayButton() {}
+
+  initializeBoard(width, height);
+  registerStepButton();
+  registerPlayButton();
+  registerCellClick();
+}
 
 tableCreate(3, 3);
-// render(board);
-forEachCell(cell => {
-  cell.addEventListener('click', handleClick);
-});
+initializeGameOfLife();
+render(board);
