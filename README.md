@@ -1,4 +1,4 @@
-# game-of-life
+# Game of Life
 
 Your task is to build Conway's Game of Life. You can learn a little more about it [here](https://www.youtube.com/watch?v=0XI6s-TGzSs). [Here](https://www.youtube.com/watch?v=C2vgICfQawE) is an awesome video showing more sophisticated configurations. Skip to about 1:10 for where things start.
 
