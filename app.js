@@ -219,7 +219,12 @@ function initializeGameOfLife() {
 
   */
   function registerResetButton() {
-    board = initializeBoard(boardWidth, boardHeight);
+    const resetButton = document.getElementById('reset');
+
+    resetButton.addEventListener('click', () => {
+      board = initializeBoard(boardWidth, boardHeight);
+      render(board);
+    });
   }
 
   // What does || do again?
