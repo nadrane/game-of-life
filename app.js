@@ -81,10 +81,19 @@ function render(board) {
   A value of true indicates that a cell is alive.
   A value of false indicates that a cell is dead.
 
-  This functions job is to return an array of arrays, whose width and height matches
-  the parameters passed in
+  This functions job is create the data structure that render expects.
+  It should match the supplied width and height.
+  You probably want to initialize each cell as dead.
 */
-function initializeBoard(width, height) {}
+function initializeBoard(width, height) {
+  board = [];
+  for (let row = 0; row < height; row++) {
+    const newRow = [];
+    for (let column = 0; column < height; column++) {
+      newRow.push(false);
+    }
+  }
+}
 
 /*
   IMPLEMENT ME
